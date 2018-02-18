@@ -15,8 +15,7 @@ class Sentence:
         self.words = nltk.word_tokenize(sentence)
         self.pos_words = None
 
-    def partOfSpeech(self, word):
-    	pass
+    
 
     def countOccurrences(self, word):
     	try:
@@ -36,8 +35,8 @@ class Sentence:
     	prevpos = ""
     	for word, pos in self.pos_words:
     		print word + " " + pos
-    		if pos in ("NNP"):
-    			if prevpos in ("NNP"):
+    		if pos in ("NNP",):
+    			if prevpos in ("NNP",):
     				currWord += " " + word
     			#elif i == len(self.pos_words) - 1:
     			#	newSentence += [(word, pos)]
@@ -46,14 +45,17 @@ class Sentence:
     			else:
     				currWord = word
     		else:
-    			if prevpos in ("NNP"):
+    			if prevpos in ("NNP",):
     				newSentence += [(currWord, "NNP")]
+    				newSentence	+= [(word, pos)]
     				currWord = ""
     			else:
-    				newSentence += [word, pos]
+    				newSentence += [(word, pos)]
     		prevpos = pos
+    	if currWord	!= "":
+    		newSentence.append( (currWord, pos) );
     	print newSentence
 
-firstSentence = Sentence("This is a random sentence sent from New Jersey")
+firstSentence = Sentence("I didn't know Tom Brady and Nick Foles threw two touchdown passes")
 firstSentence.getPartOfSpeech()
 firstSentence.combinePropers()
