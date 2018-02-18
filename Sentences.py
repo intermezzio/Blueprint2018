@@ -18,7 +18,7 @@ class Sentence:
         self.combinePropers()
         self.makeWords()
         self.getTextWords()
-    
+    	self.getImportantWords()
 
     def countOccurrences(self, word):
     	print self.textWords
@@ -83,6 +83,15 @@ class Sentence:
     			self.definedWords.append(word)
     	return self.definedWords
 
+    def getDictionary(self):
+    	self.getImportantWords()
+    	self.wordDict = dict()
+    	for word in self.definedWords:
+    		dict[word.wordName] = word.definition
+    	return self.wordDict
+
+
 
 firstSentence = Sentence("I didn't know Tom Brady and Nick Foles threw two touchdown passes")
 print firstSentence.countOccurrences("did")
+print firstSentence.getDictionary()
