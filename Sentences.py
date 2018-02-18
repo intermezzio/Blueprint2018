@@ -14,12 +14,16 @@ class Sentence:
     def __init__(self, sentence):
         self.words = nltk.word_tokenize(sentence)
         self.pos_words = None
-
+        self.getPartOfSpeech()
+        self.combinePropers()
+        self.makeWords()
+        self.getTextWords()
     
 
     def countOccurrences(self, word):
+    	print self.textWords
     	try:
-    		return Counter(words)[word]
+    		return Counter(self.textWords)[word]
     	except KeyError:
     		return 0
     
@@ -67,7 +71,18 @@ class Sentence:
     		if word.definition != None:
     			print word + "\t - " + word.definition
 
+    def getTextWords(self):
+    	self.textWords = []
+    	for word, pos in self.pos_words:
+    		self.textWords.append(word)
+
+    def getImportantWords(self):
+    	self.definedWords = []
+    	for word in self.wordWords:
+    		if word.isImportant():
+    			self.definedWords.append(word)
+    	return self.definedWords
+
+
 firstSentence = Sentence("I didn't know Tom Brady and Nick Foles threw two touchdown passes")
-firstSentence.getPartOfSpeech()
-firstSentence.combinePropers()
-firstSentence.makeWords()
+print firstSentence.countOccurrences("did")
