@@ -4,7 +4,7 @@ List of Words in a sentence
 	for the nltk Library (Natural Language Toolkit Python)
 
 """
-#from Word import *
+from Word import *
 from wordnik import *
 import nltk
 from collections import Counter
@@ -29,12 +29,10 @@ class Sentence:
     def combinePropers(self):
     	if self.pos_words is None:
     		self.getPartOfSpeech()
-    	print self.pos_words
     	newSentence = []
     	currWord = ""
     	prevpos = ""
     	for word, pos in self.pos_words:
-    		print word + " " + pos
     		if pos in ("NNP",):
     			if prevpos in ("NNP",):
     				currWord += " " + word
@@ -54,8 +52,22 @@ class Sentence:
     		prevpos = pos
     	if currWord	!= "":
     		newSentence.append( (currWord, pos) );
-    	print newSentence
+    	self.pos_words = None
+    	self.pos_words = newSentence
+
+    def makeWords(self):
+    	self.wordWords = []
+    	for wordTuple in self.pos_words:
+    		wordPart = Word(wordTuple[0], wordTuple[1])
+    		self.wordWords.append(wordPart)
+    		print self.wordWords[-1].wordName + " - "
+
+    def defineWords(self):
+    	for word in wordWords:
+    		if word.definition != None:
+    			print word + "\t - " + word.definition
 
 firstSentence = Sentence("I didn't know Tom Brady and Nick Foles threw two touchdown passes")
 firstSentence.getPartOfSpeech()
 firstSentence.combinePropers()
+firstSentence.makeWords()
