@@ -24,7 +24,7 @@ class Reader():
 	def getCSV(self):
 		csvFile = fopen("parsedSolution.csv", 'w')
 		for vocab in self.getMasterDictionary.getKeys():
-
+			pass
 
 	def fileRead():
 		pass		
