@@ -33,5 +33,5 @@ class Sentence:
     		self.getPartOfSpeech()
 
     	for wordTuple in self.pos_words:
-    		if wordTuple[1] not in ("NNP", ""):
+    		if wordTuple[1] == "NNP":
     			pass
