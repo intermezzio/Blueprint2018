@@ -63,6 +63,7 @@ class Sentence:
     	self.wordWords = []
     	for wordTuple in self.pos_words:
     		wordPart = Word(wordTuple[0], wordTuple[1])
+    		wordPart.nltkPosHandler()
     		self.wordWords.append(wordPart)
     		print self.wordWords[-1].wordName + " - "
 
@@ -87,7 +88,7 @@ class Sentence:
     	self.getImportantWords()
     	self.wordDict = dict()
     	for word in self.definedWords:
-    		dict[word.wordName] = word.definition
+    		self.wordDict[word.wordName] = word.definition
     	return self.wordDict
 
 

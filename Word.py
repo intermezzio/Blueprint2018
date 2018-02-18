@@ -30,11 +30,13 @@ class Word:
 		inprocess = inprocess["query"]["pages"]
 		for key in inprocess:
 			k = key
-		inprocess = inprocess[k]["extract"]
-		if '"extract"' not in inprocess:
+		inprocess = inprocess[k]
+		if "extract" not in inprocess:
+			print "xyz"
 			self.definition = "nodef"
-		else:
-			self.definition = inprocesss
+			return 0
+		inprocess = inprocess["extract"]
+		self.definition = inprocess
 		return 0
 	def nltkPosHandler(self):
 		if self.partOfSpeech in self.vocabTypes and self.isImportant():
@@ -47,3 +49,6 @@ class Word:
 				self.definition = "nodef"
 	def getWord(self):
 		return self.wordName
+word = Word("John Adams", "NNP")
+word.nltkPosHandler()
+print word.definition
