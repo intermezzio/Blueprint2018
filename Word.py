@@ -11,9 +11,12 @@ class Word:
 		self.wordApi = WordApi.WordApi(self.setupWordnik())
 		self.vocabTypes = {"JJ":"adjective", "JJR":"adjective","JJS":"adjective","NN":"noun","NNP":"pnoun","NNS":"noun","RB":"adverb","RBR":"adverb","RBS":"adverb","VB":"verb","VBD":"verb","VBG":"verb","VBN":"verb","VBP":"verb","VBZ":"verb"}
 	def getWordDefinition(self):
-		defArray = self.wordApi.getDefinitions(self.wordName, partOfSpeech=self.partOfSpeech, limit="1")
-		defArray = defArray[0]
-		self.definition = defArray.text
+		self.defArray = self.wordApi.getDefinitions(self.wordName, limit="1")
+		if self.defArray == None:
+			print "None"
+		self.defArray = self.defArray[0]
+		
+		self.definition = self.defArray.text
 		return 0
 	def setupWordnik(self):
 		apiUrl = 'http://api.wordnik.com/v4'
@@ -23,20 +26,21 @@ class Word:
 	def isImportant(self):
 		return len(self.wordName) >= 9
 	def getWikiSimple(self):
-		string = self.wordName.replace(" ", "%20")
-		inprocess = requests.get("https://simple.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=" + string)
-		inprocess = inprocess.content
-		inprocess = json.loads(inprocess)
-		inprocess = inprocess["query"]["pages"]
-		for key in inprocess:
+		print self.wordName
+		self.string = self.wordName.replace(" ", "%20")
+		self.inprocess = requests.get("https://simple.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=" + self.string).content
+		self.inprocess = json.loads(self.inprocess)
+		self.inprocess = self.inprocess["query"]["pages"]
+		for key in self.inprocess:
 			k = key
-		inprocess = inprocess[k]
-		if "extract" not in inprocess:
-			print "xyz"
+		self.inprocess = self.inprocess[k]
+		print self.inprocess.keys()
+		self.final = self.inprocess["extract"]
+
+		if "extract" not in self.inprocess:
 			self.definition = "nodef"
-			return 0
-		inprocess = inprocess["extract"]
-		self.definition = inprocess
+		else:
+			self.definition = self.final
 		return 0
 	def nltkPosHandler(self):
 		if self.partOfSpeech in self.vocabTypes and self.isImportant():
@@ -49,6 +53,6 @@ class Word:
 				self.definition = "nodef"
 	def getWord(self):
 		return self.wordName
-word = Word("John Adams", "NNP")
+word = Word("procrastinate", "VB")
 word.nltkPosHandler()
 print word.definition
