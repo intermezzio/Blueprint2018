@@ -53,6 +53,4 @@ class Word:
 				self.definition = "nodef"
 	def getWord(self):
 		return self.wordName
-word = Word("procrastinate", "VB")
-word.nltkPosHandler()
 print word.definition
