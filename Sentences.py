@@ -9,8 +9,10 @@ from wordnik import *
 import nltk
 from collections import Counter
 
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 class Sentence:
-		
+
 		def __init__(self, sentence):
 			self.words = nltk.word_tokenize(sentence)
 			self.pos_words = None
@@ -26,7 +28,7 @@ class Sentence:
 				return Counter(self.textWords)[word]
 			except KeyError:
 				return 0
-		
+
 		def getPartOfSpeech(self):
 			self.pos_words = nltk.pos_tag(self.words)
 

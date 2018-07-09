@@ -15,7 +15,7 @@ class Word:
 		if self.defArray == None:
 			print "None"
 		self.defArray = self.defArray[0]
-		
+
 		self.definition = self.defArray.text
 		return 0
 	def setupWordnik(self):
@@ -53,4 +53,3 @@ class Word:
 				self.definition = "nodef"
 	def getWord(self):
 		return self.wordName
-print word.definition
